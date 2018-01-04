@@ -19,12 +19,12 @@ class FrameContainer extends React.Component {
         this.frameClicked = this.frameClicked.bind(this);
     }
 
-    frameClicked({ countDownTill, content }) {
+    frameClicked({ countDownTill, link }) {
         const isUnlocked = countDownTill.isBefore(moment());
         if (isUnlocked) {
             this.setState({
                 showLightBox: true,
-                lightBoxContent: content
+                lightBoxContent: link
             });
         } else {
             alert("Please wait, would you?");
@@ -36,9 +36,7 @@ class FrameContainer extends React.Component {
         return (
             <div className="container">
                 { this.state.showLightBox && (
-                    <Lightbox backgroundWidth={ background.width } onCloseClick={ () => this.setState({ showLightBox: false }) }>
-                        { this.state.lightBoxContent }
-                    </Lightbox>
+                    <Lightbox link={ this.state.lightBoxContent } backgroundWidth={ background.width } onCloseClick={ () => this.setState({ showLightBox: false }) } />
                 )}
                 <HorizontallyCentered>
                     <div style={{position: 'relative'}}>

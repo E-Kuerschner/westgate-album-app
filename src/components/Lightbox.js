@@ -6,25 +6,43 @@ import React from "react";
 import { Motion, spring, presets } from "react-motion";
 import VerticallyCentered from "./VerticallyCentered";
 
-function Lightbox({ children, onCloseClick, backgroundWidth }) {
-    return (
-        <Motion defaultStyle={{ opacity: 0, width: 0, height: 0 }} style={{ opacity: spring(9), width: spring(75, presets.wobbly), height: spring(60, presets.wobbly) }}>
-            { ({ opacity, width, height }) => (
-                <div className="lightbox" style={{ width: backgroundWidth, backgroundColor: `rgba(0,0,0,0.${ Math.round(opacity) }` }}>
-                    <span className="glyphicon glyphicon-remove-sign lightbox__exit" onClick={ onCloseClick } />
-                    <VerticallyCentered>
-                        <div className="lightbox__content" style={{ width: `${ Math.round(width) }%`, height: `${ Math.round(height) }%` }}>
-                            { children }
-                        </div>
-                    </VerticallyCentered>
-                </div>
-            )}
-        </Motion>
-    );
+class Lightbox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.lightboxRoot = document.getElementById("lightbox-root")
+        this.el = document.createElement("div")
+    }
+
+    componentDidMount() {
+        this.lightboxRoot.appendNode(this.el);
+    }
+
+    componentWillUnmount() {
+        this.lightboxRoot.removeChild(this.el);
+    }
+
+    render() {
+        const { link, onCloseClick, backgroundWidth } = this.props;
+        React.createPortal(
+            <Motion defaultStyle={{ opacity: 0, width: 0, height: 0 }} style={{ opacity: spring(9), width: spring(75, presets.wobbly), height: spring(60, presets.wobbly) }}>
+                { ({ opacity, width, height }) => (
+                    <div className="lightbox" style={{ width: backgroundWidth, backgroundColor: `rgba(0,0,0,0.${ Math.round(opacity) }` }}>
+                        <span className="glyphicon glyphicon-remove-sign lightbox__exit" onClick={ onCloseClick } />
+                        <VerticallyCentered>
+                            <div className="lightbox__content" style={{ width: `${ Math.round(width) }%`, height: `${ Math.round(height) }%` }}>
+                                <iframe src={ link }></iframe>
+                            </div>
+                        </VerticallyCentered>
+                    </div>
+                )}
+            </Motion>,
+            this.lightboxRoot
+        );
+    }
 }
 
 Lightbox.propTypes = {
-    children: PropTypes.element.isRequired,
+    link: PropTypes.string.isRequired,
     onCloseClick: PropTypes.func.isRequired,
     backgroundWidth: PropTypes.number.isRequired
 };
