@@ -16,20 +16,20 @@ const backgroundImageSize = (state = initialState, action) => {
 
             //calc image width
             if(inRange(width, minImageSize.width, maxImageSize.width)) {
-                assign(newState, {width: width});
+                Object.assign(newState, {width: width});
             } else if(width < minImageSize.width) {
-                assign(newState, {width: minImageSize.width});
+                Object.assign(newState, {width: minImageSize.width});
             } else if(width >= maxImageSize.width) {
-                assign(newState, {width: maxImageSize.width});
+                Object.assign(newState, {width: maxImageSize.width});
             }
 
             //calc image height
             if(inRange(height, minImageSize.height, maxImageSize.height)) {
-                assign(newState, {height: height});
+                Object.assign(newState, {height: height});
             } else if(height < minImageSize.height) {
-                assign(newState, {height: minImageSize.height});
+                Object.assign(newState, {height: minImageSize.height});
             } else if(height >= maxImageSize.height) {
-                assign(newState, {height: maxImageSize.height});
+                Object.assign(newState, {height: maxImageSize.height});
             }
 
             return newState;
@@ -38,3 +38,5 @@ const backgroundImageSize = (state = initialState, action) => {
             return state;
     }
 }
+
+export default backgroundImageSize;
