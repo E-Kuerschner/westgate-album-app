@@ -52,7 +52,7 @@ export function fetchCountdownTimesRequest() {
 
 export function windowResized(width, height) {
     return {
-        type: "RESIZE",
+        type: WINDOW_RESIZED,
         payload: { width, height }
     };
 }

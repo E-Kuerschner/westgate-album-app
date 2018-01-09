@@ -17,11 +17,11 @@ const backgroundImageSize = (state = initialState, action) => {
 
             //calc image width
             if(inRange(width, minImageSize.width, maxImageSize.width)) {
-                Object.assign(newState, {width: width});
+                Object.assign(newState, { width });
             } else if(width < minImageSize.width) {
-                Object.assign(newState, {width: minImageSize.width});
+                Object.assign(newState, { width: minImageSize.width });
             } else if(width >= maxImageSize.width) {
-                Object.assign(newState, {width: maxImageSize.width});
+                Object.assign(newState, { width: maxImageSize.width });
             }
 
             //calc image height
