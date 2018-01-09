@@ -40,7 +40,7 @@ class FrameContainer extends React.Component {
                 )}
                 <HorizontallyCentered>
                     <div style={{position: 'relative'}}>
-                        <BackgroundImage width={300} height={300} />
+                        <BackgroundImage width={background.width} height={background.height} />
                         <Frame size={ Frames[0].size } offset={ Frames[0].offset } onClick={ () => this.frameClicked(Frames[0]) } isUnlocked={ Frames[0].countDownTill.isBefore(moment()) }>
                             <CountDown targetMoment={Frames[0].countDownTill}/>
                         </Frame>

@@ -1,4 +1,5 @@
 import inRange from "lodash/inRange";
+import { WINDOW_RESIZED } from "../actions";
 
 const minImageSize = {width: 800, height: 650}
 const maxImageSize = {width: Infinity, height: Infinity}
@@ -10,9 +11,9 @@ const initialState = {
 
 const backgroundImageSize = (state = initialState, action) => {
     switch(action.type) {
-        case "RESIZE":
+        case WINDOW_RESIZED:
             let newState = {};
-            const { width, height } = action;
+            const { width, height } = action.payload;
 
             //calc image width
             if(inRange(width, minImageSize.width, maxImageSize.width)) {

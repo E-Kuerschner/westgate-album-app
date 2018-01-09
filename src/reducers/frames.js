@@ -89,8 +89,8 @@ const initialState = [
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case "RESIZE":
-            const { width, height } = action;
+        case Actions.WINDOW_RESIZED:
+            const { width, height } = action.payload;
             return state.map((frameData) => {
                 const heightFactor = height <= minImageSize.height ? minImageSize.height : height;
                 return Object.assign({}, frameData, {

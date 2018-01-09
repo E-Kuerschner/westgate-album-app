@@ -1,37 +1,37 @@
 import "babel-polyfill";
-import React from 'react';
-import { render } from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import React from "react";
+import { render } from "react-dom";
+import { compose, createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import reducer from "./reducers";
+import { windowResized } from "./actions";
 import Root from "./components/Root";
 
-const getAppRoot = () => document.getElementById("root");
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ shouldHotReload: false })
+    : compose;
 
 const store = createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    { background: { width: window.innerWidth, height: window.innerHeight } },
+    composeEnhancer(applyMiddleware(thunk))
 );
 
-store.dispatch({
-    type: "RESIZE",
-    width: window.innerWidth,
-    height: window.innerHeight
+store.dispatch(windowResized(window.innerWidth, window.innerHeight));
+window.addEventListener("resize", (e) => {
+    store.dispatch(windowResized(e.target.innerWidth, e.target.innerHeight));
 });
 
-window.addEventListener('resize', (e) => {
-    store.dispatch({
-        type: "RESIZE",
-        width: e.target.innerWidth,
-        height: e.target.innerHeight
-    });
-});
+function renderApp(RootComponent) {
+    render(<RootComponent store={ store } />, document.getElementById("root"));
+}
 
-render(<Root store={ store } />, getAppRoot());
+renderApp(Root);
 
 if (module.hot) {
     module.hot.accept("./components/Root", () => {
         const nextRoot = require("./components/Root").default;
-        render(<nextRoot store={ store } />, getAppRoot());
+        renderApp(nextRoot);
     })
 
     module.hot.accept("./reducers", () => {
