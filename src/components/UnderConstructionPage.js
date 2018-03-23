@@ -2,8 +2,9 @@
  * Created by Erich on 3/9/2017.
  */
 import React from "react";
-import windowPic from "../../images/window.jpg";
+import windowPic from "../../images/frames.jpg";
 import VerticallyCentered from "./VerticallyCentered";
+import API from "../api"
 
 const underConstructionStyle = {
     width: "100%",
@@ -14,12 +15,39 @@ const underConstructionStyle = {
     textAlign: "center"
 };
 
-const UnderConstructionPage = () => (
-    <div style={underConstructionStyle}>
-    	<VerticallyCentered>
-        	Coming Soon...
-    	</VerticallyCentered>
-    </div>
-);
+class UnderConstructionPage extends React.Component {
+    constructor() {
+        super();
+        this.state = { loadingImage: true }
+    }
+
+    componentDidMount() {
+        API.getDays().then(res => console.log(res))
+
+        const img = new Image();
+        img.onload = () => {
+            setTimeout(() => {
+                this.setState({ loadingImage: false });
+                this.page.insertBefore(img, this.page.firstChild);
+            }, 2000);
+        }
+        img.src = windowPic;
+        img.style.width = "100px"
+        img.style.height = "100px"
+    }
+
+    render() {
+        return (
+            <div style={underConstructionStyle} ref={ node => this.page = node }>
+                { this.state.loadingImage
+                    ? "LOADING"
+                    : <VerticallyCentered>
+                        Coming Soon...
+                    </VerticallyCentered>
+                }
+            </div>
+        );
+    }
+}
 
 export default UnderConstructionPage;

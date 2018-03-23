@@ -1,39 +1,27 @@
 const webpack = require("webpack");
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const PUBLIC_PATH = "/";
 
-let plugins = [];
-if (process.env.NODE_ENV === "production") {
-    plugins = [
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            beautify: true,
-            compress: {
-                warnings: false,
-                drop_console: true
-            },
-            comments: false
-        })
-    ];
-} else {
-    plugins = [
-        new HTMLWebpackPlugin({
-            template: "index-template.ejs",
-            filename: "../index.html"
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    ];
-}
+let plugins = [
+    new CopyPlugin([
+        { from: "./css", to: "./css" }
+    ]),
+    new HTMLWebpackPlugin({
+        template: "index-template.ejs",
+        filename: "index.html"
+    }),
+    new webpack.HotModuleReplacementPlugin()
+];
 
 module.exports = {
-    devtool: "eval",
+    target: "web",
+    mode: process.env.NODE_ENV || "development",
     entry: "./src/app.js",
     output: {
-        path: path.join(__dirname, "public", "javascripts"),
+        path: path.join(__dirname, "dist"),
         filename: "bundle.js",
         publicPath: PUBLIC_PATH
     },
@@ -42,18 +30,15 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: ["node_modules"],
-                use: ["babel-loader"]
+                use: ["babel-loader"],
+                exclude: ["node_modules"]
             },
             {
                 test:   /\.(png|gif|jpg|jpeg)$/,
                 exclude: ["node_modules"],
                 use: [{
                     loader: "url-loader",
-                    options: {
-                        limit: 10000,
-                        name: "../images/[name].[ext]"
-                    }
+                    query: "name=images/[name].[ext]&limit=10000"
                 }]
             }
         ]
@@ -62,7 +47,6 @@ module.exports = {
         hot: true,
         port: 8080,
         host: "localhost",
-        publicPath: PUBLIC_PATH,
-        contentBase: path.join(__dirname, "public")
+        publicPath: PUBLIC_PATH
     }
 }

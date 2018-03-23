@@ -23,7 +23,10 @@ window.addEventListener("resize", (e) => {
 });
 
 function renderApp(RootComponent) {
-    render(<RootComponent store={ store } />, document.getElementById("root"));
+    render(
+        <RootComponent store={ store } />,
+        document.getElementById("root")
+    );
 }
 
 renderApp(Root);

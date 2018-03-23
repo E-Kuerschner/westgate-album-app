@@ -1,8 +1,8 @@
 import fetch from "isomorphic-fetch"
 
-const baseUrl = "u2k3esuwgd.execute-api.us-east-1.amazonaws.com/prod"
+const baseUrl = "https://u2k3esuwgd.execute-api.us-east-1.amazonaws.com/prod"
 
-export default {
+const API = {
     getDailyContent(number) {
         return fetch(`${ baseUrl }/getDailyContent/${ number }`)
             .then(res => res.json())
@@ -12,3 +12,5 @@ export default {
             .then(res => res.json())
     }
 }
+
+export default API

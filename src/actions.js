@@ -1,9 +1,9 @@
-import { getDayContent, getCountdownTimes } from "./api";
+import API from "./api";
 
 export const WINDOW_RESIZED = "WINDOW_RESIZED";
 
-export const FETCH_COUNTDOWN_TIMES_REQUESTED = "FETCH_COUNTDOWN_TIMES_REQUESTED";
-export const FETCH_COUNTDOWN_TIMES_SUCCEEDED = "FETCH_COUNTDOWN_TIMES_SUCCEEDED";
+export const FETCH_DAYS_REQUESTED = "FETCH_DAYS_REQUESTED";
+export const FETCH_DAYS_SUCCEEDED = "FETCH_DAYS_SUCCEEDED";
 
 export const FETCH_DAILY_CONTENT_REQUESTED = "FETCH_DAILY_CONTENT_REQUESTED";
 export const FETCH_DAILY_CONTENT_SUCCEEDED = "FETCH_DAILY_CONTENT_SUCCEEDED";
@@ -15,38 +15,42 @@ export function fetchDailyContentRequest(dayNumber) {
              type: FETCH_DAILY_CONTENT_REQUESTED,
              payload: { dayNumber }
         });
-        getDayContent(dayNumber)
-            .then(link => {
-                dispatch({
-                    type: FETCH_DAILY_CONTENT_SUCCEEDED,
-                    payload: { link, dayNumber }
-                });
-            })
-            .catch(err => {
-                dispatch({
-                    type: API_ERROR,
-                    payload: { message: err.message, dayNumber }
-                });
-            });
+        API.getDailyContent(dayNumber)
+            .then(
+                content => {
+                    dispatch({
+                        type: FETCH_DAILY_CONTENT_SUCCEEDED,
+                        payload: content
+                    });
+                },
+                err => {
+                    dispatch({
+                        type: API_ERROR,
+                        payload: { message: err.message, dayNumber }
+                    });
+                }
+            );
     };
 }
 
-export function fetchCountdownTimesRequest() {
+export function fetchDaysRequest() {
     return dispatch => {
-        dispatch({ type: FETCH_COUNTDOWN_TIMES_REQUESTED });
-        getCountdownTimes()
-            .then(res => {
-                dispatch({
-                    type: FETCH_COUNTDOWN_TIMES_SUCCEEDED,
-                    payload: { countdownTimes: res }
-                });
-            })
-            .catch(err => {
-                dispatch({
-                    type: API_ERROR,
-                    payload: { message: err.message }
-                });
-            });
+        dispatch({ type: FETCH_DAYS_REQUESTED });
+        API.getDays()
+            .then(
+                res => {
+                    dispatch({
+                        type: FETCH_DAYS_SUCCEEDED,
+                        payload: { countdownTimes: res }
+                    });
+                },
+                err => {
+                    dispatch({
+                        type: API_ERROR,
+                        payload: { message: err.message }
+                    });
+                }
+            );
     }
 }
 
