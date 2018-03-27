@@ -41,7 +41,7 @@ export function fetchDaysRequest() {
                 res => {
                     dispatch({
                         type: FETCH_DAYS_SUCCEEDED,
-                        payload: { countdownTimes: res }
+                        payload: res
                     });
                 },
                 err => {

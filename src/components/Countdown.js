@@ -23,7 +23,7 @@ class Countdown extends Component {
     
 
     _formatTime() {
-        const target = this.props.targetMoment.unix();
+        const target = this.props.targetEpoch;
         const now = moment().unix();
         const diff = target - now;
         const duration = moment.duration(diff * 1000, "milliseconds");
@@ -47,7 +47,7 @@ class Countdown extends Component {
 }
 
 Countdown.propTypes = {
-    targetMoment: PropTypes.instanceOf(moment).isRequired
+    targetEpoch: PropTypes.number.isRequired
 }
 
 export default Countdown;

@@ -1,36 +1,37 @@
 import inRange from "lodash/inRange";
 import { WINDOW_RESIZED } from "../actions";
+import * as ImgSizeLimits from "../constants"
 
-const minImageSize = {width: 800, height: 650}
-const maxImageSize = {width: Infinity, height: Infinity}
+// limits for background image size
+const minImageSize = { width: 800, height: 650 };
+const maxImageSize = { width: Infinity, height: Infinity };
 
-const initialState = {
-    width: 1688,
-    height: 950
-};
-
-const backgroundImageSize = (state = initialState, action) => {
+const backgroundImageSize = (state = { width: 1699, height: 950 }, action) => {
     switch(action.type) {
         case WINDOW_RESIZED:
             let newState = {};
             const { width, height } = action.payload;
 
-            //calc image width
-            if(inRange(width, minImageSize.width, maxImageSize.width)) {
+            // calc new image width:
+            // if the image is within the size limits defined above don't change the width
+            if(inRange(width, ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH, ImgSizeLimits.MAX_BACKGROUND_IMG_WIDTH)) {
                 Object.assign(newState, { width });
-            } else if(width < minImageSize.width) {
-                Object.assign(newState, { width: minImageSize.width });
-            } else if(width >= maxImageSize.width) {
-                Object.assign(newState, { width: maxImageSize.width });
+            // if the width is less than the min width, set new width to minimum value
+            } else if(width < ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH) {
+                Object.assign(newState, { width: ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH });
+            // if the width is greater than the max width, set the new width to the maximum value
+            } else if(width >= ImgSizeLimits.MAX_BACKGROUND_IMG_WIDTH) {
+                Object.assign(newState, { width: ImgSizeLimits.MAX_BACKGROUND_IMG_WIDTH });
             }
 
-            //calc image height
-            if(inRange(height, minImageSize.height, maxImageSize.height)) {
-                Object.assign(newState, {height: height});
-            } else if(height < minImageSize.height) {
-                Object.assign(newState, {height: minImageSize.height});
-            } else if(height >= maxImageSize.height) {
-                Object.assign(newState, {height: maxImageSize.height});
+            // calc image height:
+            // same rules as width calculation...
+            if(inRange(height, ImgSizeLimits.MIN_BACKGROUND_IMG_HEIGHT, ImgSizeLimits.MAX_BACKGROUND_IMG_HEIGHT)) {
+                Object.assign(newState, { height });
+            } else if(height < ImgSizeLimits.MIN_BACKGROUND_IMG_HEIGHT) {
+                Object.assign(newState, { height: ImgSizeLimits.MIN_BACKGROUND_IMG_HEIGHT });
+            } else if(height >= ImgSizeLimits.MAX_BACKGROUND_IMG_HEIGHT) {
+                Object.assign(newState, { height: ImgSizeLimits.MAX_BACKGROUND_IMG_HEIGHT });
             }
 
             return newState;

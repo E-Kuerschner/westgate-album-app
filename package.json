@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production webpack --mode=production"
   },
   "dependencies": {
+    "animejs": "^2.2.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "prop-types": "^15.6.1",
