@@ -8,7 +8,7 @@ const Frame = ({size, offset, children, onClick, isUnlocked }) => (
     <OffsetContent offset={offset}>
         <div 
             style={ getFrameSize(size) }
-            className={ `frame--${ isUnlocked ? "un" : "" }locked` }
+            className={ `frame frame--${ isUnlocked ? "un" : "" }locked` }
             onClick={ onClick }
         >
             { children }

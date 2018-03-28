@@ -85,7 +85,9 @@ class LoadingSplash extends React.Component {
                                 style={{ opacity }}
                             >
                                 <VerticallyCentered>
-                                    <TitleSVG />
+                                    <div className="loading-splash__title">
+                                        <TitleSVG />
+                                    </div>
                                 </VerticallyCentered>
                             </div>
                         )
