@@ -12,7 +12,6 @@ class LoadingSplash extends React.Component {
 
         this.willEnter = this.willEnter.bind(this)
         this.willLeave = this.willLeave.bind(this)
-        this.getDefaultStyles = this.getDefaultStyles.bind(this)
         this.getStyles = this.getStyles.bind(this)
 
     }
@@ -31,21 +30,6 @@ class LoadingSplash extends React.Component {
         })
         
         wait(1000).then(this.animateSVG.restart)
-        // window.addEventListener("load", this.animateSVG.restart)
-    }
-
-    componentWillUnmount() {
-
-    }
-
-    getDefaultStyles() {
-        if (this.props.show) {
-            return [{
-                key: this.transitionKey,
-                style: { opacity: 1 }
-            }]
-        }
-        return []
     }
 
     getStyles() {
@@ -72,7 +56,6 @@ class LoadingSplash extends React.Component {
                 styles={ this.getStyles }
                 willEnter={ this.willEnter }
                 willLeave={ this.willLeave }
-                defaultStyles={ this.getDefaultStyles() }
             >
                 { interpolatedStyles => {
                     const itemStyles = interpolatedStyles.pop()
