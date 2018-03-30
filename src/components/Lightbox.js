@@ -3,6 +3,7 @@
  */
 import PropTypes from "prop-types";
 import React from "react";
+import { createPortal } from "react-dom";
 import { Motion, spring, presets } from "react-motion";
 import VerticallyCentered from "./VerticallyCentered";
 
@@ -14,7 +15,7 @@ class Lightbox extends React.Component {
     }
 
     componentDidMount() {
-        this.lightboxRoot.appendNode(this.el);
+        this.lightboxRoot.appendChild(this.el);
     }
 
     componentWillUnmount() {
@@ -22,15 +23,15 @@ class Lightbox extends React.Component {
     }
 
     render() {
-        const { link, onCloseClick, backgroundWidth } = this.props;
-        React.createPortal(
+        const { dailyData, onCloseClick, backgroundWidth } = this.props;
+        return createPortal(
             <Motion defaultStyle={{ opacity: 0, width: 0, height: 0 }} style={{ opacity: spring(9), width: spring(75, presets.wobbly), height: spring(60, presets.wobbly) }}>
                 { ({ opacity, width, height }) => (
                     <div className="lightbox" style={{ width: backgroundWidth, backgroundColor: `rgba(0,0,0,0.${ Math.round(opacity) }` }}>
                         <span className="glyphicon glyphicon-remove-sign lightbox__exit" onClick={ onCloseClick } />
                         <VerticallyCentered>
                             <div className="lightbox__content" style={{ width: `${ Math.round(width) }%`, height: `${ Math.round(height) }%` }}>
-                                <iframe src={ link }></iframe>
+                                <iframe src={ dailyData.link }></iframe>
                             </div>
                         </VerticallyCentered>
                     </div>
@@ -42,7 +43,7 @@ class Lightbox extends React.Component {
 }
 
 Lightbox.propTypes = {
-    link: PropTypes.string.isRequired,
+    dailyData: PropTypes.object.isRequired,
     onCloseClick: PropTypes.func.isRequired,
     backgroundWidth: PropTypes.number.isRequired
 };

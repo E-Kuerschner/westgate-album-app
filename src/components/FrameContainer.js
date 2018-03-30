@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import moment from "moment";
 import { fetchDailyContentRequest, fetchDaysRequest } from "../actions"
 import wait from "../wait"
-import BackgroundImage from './BackgroundImage';
 import HorizontallyCentered from './HorizontallyCentered';
 import Frame from './Frame';
 import Lightbox from "./Lightbox";
@@ -49,7 +48,7 @@ class FrameContainer extends React.Component {
         if (isUnlocked) {
             this.setState({
                 showLightBox: true,
-                lightBoxContent: link
+                lightBoxContent: frameData
             });
         } else {
             alert("Please wait, would you?");
@@ -66,7 +65,7 @@ class FrameContainer extends React.Component {
                     onAnimationCompletion={ () => this.setState({ loadingAnimationComplete: true }) }
                 />
                 { showLightBox &&
-                    <Lightbox link={ lightBoxContent } backgroundWidth={ background.width } onCloseClick={ () => this.setState({ showLightBox: false }) } />
+                    <Lightbox dailyData={ lightBoxContent } backgroundWidth={ background.width } onCloseClick={ () => this.setState({ showLightBox: false }) } />
                 }
                 <HorizontallyCentered>
                     <div style={{position: 'relative'}} ref={ node => this.container = node }>

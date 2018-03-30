@@ -3,6 +3,7 @@ import anime from "animejs"
 import { spring, TransitionMotion, presets } from "react-motion"
 import VerticallyCentered from "./VerticallyCentered"
 import TitleSVG from "./TitleSVG"
+import LoadingSpinner from "./LoadingSpinner"
 import wait from "../wait"
 
 class LoadingSplash extends React.Component {
@@ -71,6 +72,7 @@ class LoadingSplash extends React.Component {
                                     <div className="loading-splash__title">
                                         <TitleSVG />
                                     </div>
+                                    <LoadingSpinner className="loading-splash__spinner" size="medium" type="primary" />
                                 </VerticallyCentered>
                             </div>
                         )

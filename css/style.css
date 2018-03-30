@@ -8,13 +8,21 @@ body {
   background-color: rgb(37, 25, 14);
 }
 
-#app, #root {
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+} 
+
+#root {
   width: 100%;
   height: 100%;
 }
 
 #lightbox-root {
-  
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 /* embedded video styles */
@@ -41,11 +49,12 @@ iframe {
 
 .frame--unlocked {
   cursor: pointer;
+  transform: rotate(-1deg);
 }
 
 .frame--unlocked:hover {
-  border: solid #4d4545c5 5px;
-  /* background-color: red; */
+  border: solid palegoldenrod 5px;
+  box-shadow: #ab76 0px 0px 100px 0px;
 }
 
 /* HORIZONTALLY CENTERED */
@@ -117,3 +126,49 @@ iframe {
   width: 800px;
   margin: auto;
 }
+
+.loading-splash__spinner {
+  display: block !important;
+}
+
+/* LOADING SPINNER  */
+.spinner-container {
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spinner {
+  position: relative;
+  margin: 0 auto;
+  border: 2px solid gray;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner--small {
+  height: 20px;
+  width: 20px;
+}
+
+.spinner--medium {
+  height: 50px;
+  width: 50px;
+}
+
+.spinner--large {
+  height: 100px;
+  width: 100px;
+}
+
+.spinner--primary {
+  border-top: 2px solid silver;
+}
+
+.spinner--secondary {
+  border-top: 2px solid orange;
+}
+
+/* SOCIAL */
