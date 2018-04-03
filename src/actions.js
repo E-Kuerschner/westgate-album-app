@@ -1,6 +1,9 @@
 import API from "./api";
+import wait from "./wait"
 
 export const WINDOW_RESIZED = "WINDOW_RESIZED";
+
+export const DAY_SELECTED = "DAY_SELECTED";
 
 export const FETCH_DAYS_REQUESTED = "FETCH_DAYS_REQUESTED";
 export const FETCH_DAYS_SUCCEEDED = "FETCH_DAYS_SUCCEEDED";
@@ -9,16 +12,18 @@ export const FETCH_DAILY_CONTENT_REQUESTED = "FETCH_DAILY_CONTENT_REQUESTED";
 export const FETCH_DAILY_CONTENT_SUCCEEDED = "FETCH_DAILY_CONTENT_SUCCEEDED";
 export const API_ERROR = "API_ERROR";
 
-export function fetchDailyContentRequest(dayNumber) {
+export function fetchDailyContentRequest(dayNumber, options = {}) {
+    const promises = [API.getDailyContent(dayNumber)]
+    if (options.artificialWait) promises.push(wait(options.artificialWait))
     return dispatch => {
         dispatch({
              type: FETCH_DAILY_CONTENT_REQUESTED,
              payload: { dayNumber }
         });
-        API.getDailyContent(dayNumber)
+        return Promise.all(promises)
             .then(
-                content => {
-                    dispatch({
+                ([content]) => {
+                    return dispatch({
                         type: FETCH_DAILY_CONTENT_SUCCEEDED,
                         payload: content
                     });
@@ -33,13 +38,15 @@ export function fetchDailyContentRequest(dayNumber) {
     };
 }
 
-export function fetchDaysRequest() {
+export function fetchDaysRequest(options = {}) {
+    const promises = [API.getDays()]
+    if (options.artificialWait) promises.push(wait(options.artificialWait))
     return dispatch => {
         dispatch({ type: FETCH_DAYS_REQUESTED });
-        API.getDays()
+        return Promise.all(promises)
             .then(
-                res => {
-                    dispatch({
+                ([res]) => {
+                    return dispatch({
                         type: FETCH_DAYS_SUCCEEDED,
                         payload: res
                     });
@@ -52,6 +59,13 @@ export function fetchDaysRequest() {
                 }
             );
     }
+}
+
+export function daySelected(dayNumber) {
+    return {
+        type: DAY_SELECTED,
+        payload: { dayNumber }
+    };
 }
 
 export function windowResized(width, height) {

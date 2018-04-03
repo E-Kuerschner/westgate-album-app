@@ -5,7 +5,9 @@ import { MIN_BACKGROUND_IMG_WIDTH, MIN_BACKGROUND_IMG_HEIGHT } from "../constant
 
 const initialState = {
     isFetching: false,
+    selectedDay: null,
     frames: [{
+        number: 1,
         isFetching: false,
         desc: "left",
         link: undefined,
@@ -21,6 +23,7 @@ const initialState = {
             left: undefined
         }
     }, {
+        number: 2,
         isFetching: false,
         desc: "top",
         link: undefined,
@@ -36,6 +39,7 @@ const initialState = {
             left: undefined
         }
     }, {
+        number: 3,
         isFetching: false,
         desc: "middle",
         link: undefined,
@@ -51,6 +55,7 @@ const initialState = {
             left: undefined
         }
     }, {
+        number: 4,
         isFetching: false,
         desc: "top-right",
         link: undefined,
@@ -66,6 +71,7 @@ const initialState = {
             left: undefined
         }
     }, {
+        number: 5,
         isFetching: false,
         desc: "bottom-right",
         link: undefined,
@@ -105,6 +111,11 @@ export default function(state = initialState, action) {
                     });
                 })
             };
+        case Actions.DAY_SELECTED:
+            return {
+                ...state,
+                selectedDay: action.payload.dayNumber
+            };
         case Actions.FETCH_DAYS_REQUESTED:
             return {
                 ...state,
@@ -115,7 +126,10 @@ export default function(state = initialState, action) {
                 ...state,
                 isFetching: false,
                 frames: state.frames.map((frameData, index) => {
-                    return { ...frameData, ...action.payload[index + 1] };
+                    return {
+                        ...frameData,
+                        unlockEpoch: action.payload[`${ index + 1}`].unlockEpoch
+                    };
                 })
             };
         case Actions.FETCH_DAILY_CONTENT_REQUESTED:
@@ -136,7 +150,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 frames: state.frames.map((frameData, index) => {
-                    if (index === action.payload.dayNumber - 1) {
+                    if (index === action.payload.number - 1) {
                         return {
                             ...frameData,
                             isFetching: false,

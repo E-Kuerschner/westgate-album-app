@@ -27,10 +27,10 @@ class Countdown extends Component {
         const now = moment().unix();
         const diff = target - now;
         const duration = moment.duration(diff * 1000, "milliseconds");
-        const days = duration.days() > 0 ? `${ duration.days() }D` : "";
-        const hours = duration.hours() >= 0 ? `${ duration.hours() }H` : "";
-        const minutes = duration.minutes() >= 0 && duration.hours() > 0 ? `${ duration.minutes() }M` : "";
-        const seconds = duration.seconds() >= 0 && duration.minutes() > 0 ? `${ duration.seconds() }S` : "";
+        const days = duration.days() > 0 ? `${ duration.days() }d` : "";
+        const hours = duration.hours() >= 0 ? `${ duration.hours() }h` : "";
+        const minutes = duration.minutes() >= 0 && duration.hours() > 0 ? `${ duration.minutes() }m` : "";
+        const seconds = duration.seconds() >= 0 && duration.minutes() > 0 && duration.days() < 1 ? `${ duration.seconds() }s` : "";
 
         return `${ days } ${ hours } ${ minutes } ${ seconds }`;
     }

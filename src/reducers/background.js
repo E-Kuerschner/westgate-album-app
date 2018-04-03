@@ -6,7 +6,7 @@ import * as ImgSizeLimits from "../constants"
 const minImageSize = { width: 800, height: 650 };
 const maxImageSize = { width: Infinity, height: Infinity };
 
-const backgroundImageSize = (state = { width: 1699, height: 950 }, action) => {
+const backgroundImageSize = (state = { width: null, height: null }, action) => {
     switch(action.type) {
         case WINDOW_RESIZED:
             let newState = {};
@@ -15,7 +15,7 @@ const backgroundImageSize = (state = { width: 1699, height: 950 }, action) => {
             // calc new image width:
             // if the image is within the size limits defined above don't change the width
             if(inRange(width, ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH, ImgSizeLimits.MAX_BACKGROUND_IMG_WIDTH)) {
-                Object.assign(newState, { width });
+                Object.assign(newState, { width: state.width });
             // if the width is less than the min width, set new width to minimum value
             } else if(width < ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH) {
                 Object.assign(newState, { width: ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH });
