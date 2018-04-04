@@ -14,7 +14,8 @@ class Lightbox extends React.Component {
         super(props);
 
         this.state = {
-            externalLink: null
+            externalLink: null,
+            videoLoaded: false
         }
 
         this.lightboxRoot = document.getElementById("lightbox-root")
@@ -44,7 +45,7 @@ class Lightbox extends React.Component {
 
     render() {
         const { dailyData, onCloseClick, backgroundHeight, selectedDay } = this.props;
-        const { externalLink, openAnimationComplete } = this.state;
+        const { externalLink, openAnimationComplete, videoLoaded } = this.state;
         return createPortal(
             <Motion
                 defaultStyle={{ opacity: 0, width: 0, height: 0 }}
@@ -74,11 +75,11 @@ class Lightbox extends React.Component {
                                     className="lightbox__content"
                                     style={{ width: `${ Math.round(width) }%`, height: `${ Math.round(height) }%` }}
                                 >
-                                    { Boolean(selectedDay.link)
-                                        ? <iframe src={ selectedDay.link }></iframe>
-                                        : <VerticallyCentered>
+                                    <iframe src={ selectedDay.link } onLoad={ () => this.setState({ videoLoaded: true }) }></iframe>
+                                    { (!Boolean(selectedDay.link) || !videoLoaded) &&
+                                        <div className="lightbox__spinner">
                                             <LoadingSpinner size="medium" type="primary" />
-                                        </VerticallyCentered>
+                                        </div>
                                     }
                                 </div>
                             </VerticallyCentered>

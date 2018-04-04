@@ -107,6 +107,12 @@ iframe {
   color: white;
 }
 
+.lightbox__spinner {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 20px);
+}
+
 /* OFFSET CONTAINER */
 .offset-container {
   position: absolute;
