@@ -15,7 +15,7 @@ const backgroundImageSize = (state = { width: null, height: null }, action) => {
             // calc new image width:
             // if the image is within the size limits defined above don't change the width
             if(inRange(width, ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH, ImgSizeLimits.MAX_BACKGROUND_IMG_WIDTH)) {
-                Object.assign(newState, { width: state.width });
+                Object.assign(newState, { width });
             // if the width is less than the min width, set new width to minimum value
             } else if(width < ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH) {
                 Object.assign(newState, { width: ImgSizeLimits.MIN_BACKGROUND_IMG_WIDTH });

@@ -77,11 +77,11 @@ class FrameContainer extends React.Component {
                         <Lightbox
                             fetchDailyData={ fetchDailyContentRequest }
                             dailyData={ lightBoxContent }
-                            backgroundWidth={ background.width } 
+                            backgroundHeight={ background.height }
                             onCloseClick={ () => this.setState({ showLightBox: false }) }
                         />
                     }
-                    <div style={{ position: 'relative', width: background.height * 1.8, height: background.height, margin: 'auto' }} ref={ node => this.container = node }>
+                    <div style={{ position: 'relative', width: background.height * 1.789916, height: background.height, margin: 'auto' }} ref={ node => this.container = node }>
                         <img
                             src={ windowPic }
                             height={ background.height }

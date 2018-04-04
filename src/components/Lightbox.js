@@ -19,48 +19,73 @@ class Lightbox extends React.Component {
 
         this.lightboxRoot = document.getElementById("lightbox-root")
         this.el = document.createElement("div")
+
+        this.escFunction = this.escFunction.bind(this)
+    }
+
+    escFunction(event){
+        if(event.keyCode === 27) {
+          this.props.onCloseClick()
+        }
     }
 
     componentDidMount() {
         this.lightboxRoot.appendChild(this.el);
-
+        document.addEventListener("keydown", this.escFunction, false);
         if (!this.props.selectedDay.link) {
-            this.props.fetchDailyData(this.props.dailyData.number, { artificialWait: 1000 })
+            this.props.fetchDailyData(this.props.dailyData.number, { artificialWait: 1500 })
         }
     }
 
     componentWillUnmount() {
         this.lightboxRoot.removeChild(this.el);
+        document.removeEventListener("keydown", this.escFunction, false);
     }
 
     render() {
-        const { dailyData, onCloseClick, backgroundWidth, selectedDay } = this.props;
+        const { dailyData, onCloseClick, backgroundHeight, selectedDay } = this.props;
         const { externalLink, openAnimationComplete } = this.state;
         return createPortal(
-            <div>
-                <Motion
-                    defaultStyle={{ opacity: 0, width: 0, height: 0 }}
-                    style={{ opacity: spring(8), width: spring(75, presets.wobbly), height: spring(60, presets.wobbly) }}        
-                >
-                    { ({ opacity, width, height }) => (
-                        <div className="lightbox" style={{ width: backgroundWidth, backgroundColor: `rgba(0,0,0,0.${ Math.round(opacity) }` }}>
+            <Motion
+                defaultStyle={{ opacity: 0, width: 0, height: 0 }}
+                style={{
+                    opacity: spring(8),
+                    width: spring(80, presets.wobbly),
+                    height: spring(70, presets.wobbly)
+                }}        
+            >
+                { ({ opacity, width, height }) => {
+                    const windowWidth = window.innerWidth
+                    const imageWidth = backgroundHeight * 1.789916
+                    const lightboxWidth = imageWidth < windowWidth ? windowWidth : imageWidth
+                    return (
+                        <div
+                            className="lightbox"
+                            style={{
+                                width: lightboxWidth,
+                                height: backgroundHeight,
+                                backgroundColor: `rgba(0,0,0,0.${ Math.round(opacity) }`
+                            }}
+                            onClick={ onCloseClick }
+                        >
                             <span className="glyphicon glyphicon-remove-sign lightbox__exit" onClick={ onCloseClick } />
                             <VerticallyCentered>
-                                <div className="lightbox__content" style={{ width: `${ Math.round(width) }%`, height: `${ Math.round(height) }%` }}>
-                                    { Boolean(selectedDay) 
+                                <div
+                                    className="lightbox__content"
+                                    style={{ width: `${ Math.round(width) }%`, height: `${ Math.round(height) }%` }}
+                                >
+                                    { Boolean(selectedDay.link)
                                         ? <iframe src={ selectedDay.link }></iframe>
-                                        : (
-                                            <VerticallyCentered>
-                                                <LoadingSpinner size="medium" type="primary" />
-                                            </VerticallyCentered>
-                                        )
+                                        : <VerticallyCentered>
+                                            <LoadingSpinner size="medium" type="primary" />
+                                        </VerticallyCentered>
                                     }
                                 </div>
                             </VerticallyCentered>
                         </div>
-                    )}
-                </Motion>
-            </div>,
+                    )
+                }}
+            </Motion>,
             this.lightboxRoot
         );
     }
@@ -70,7 +95,7 @@ Lightbox.propTypes = {
     dailyData: PropTypes.object.isRequired,
     fetchDailyData: PropTypes.func.isRequired,
     onCloseClick: PropTypes.func.isRequired,
-    backgroundWidth: PropTypes.number.isRequired,
+    backgroundHeight: PropTypes.number.isRequired,
     selectedDay: PropTypes.object
 };
 

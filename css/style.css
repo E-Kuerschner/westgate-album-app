@@ -21,7 +21,6 @@ body {
 
 #lightbox-root {
   position: absolute;
-  width: 100%;
   height: 100%;
 }
 
@@ -85,8 +84,9 @@ iframe {
 /* LIGHTBOX */
 .lightbox {
   position: relative;
-  z-index: 1000;
+  z-index: 100;
   height: 100%;
+  width: 100%;
 }
 
 .lightbox__exit {
@@ -141,6 +141,7 @@ iframe {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
 .spinner {
   position: relative;
   margin: 0 auto;
@@ -170,6 +171,36 @@ iframe {
 
 .spinner--secondary {
   border-top: 2px solid orange;
+}
+
+/* WARNING PAGE */
+.warning {
+  padding: 25px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  text-align: center;
+  font-family: Julius Sans One, sans-serif;
+}
+
+.warning__heading {
+  font-size: x-large;
+  margin-bottom: 25px;
+}
+
+.warning__message {
+  margin-bottom: 50px;
+}
+
+.warning__btn {
+  border-radius: 10px;
+  background-color: green;
+  color: white;
+  padding: 10px;
+}
+
+.warning__btn:hover {
+  cursor: pointer;
 }
 
 /* SOCIAL */
