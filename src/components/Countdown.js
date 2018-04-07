@@ -4,7 +4,7 @@
 import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import moment from "moment";
-import VerticallyCentered from './VerticallyCentered';
+import VerticallyCentered from './layout/VerticallyCentered';
 
 class Countdown extends Component {
     constructor(props) {

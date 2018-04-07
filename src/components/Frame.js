@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from 'react';
-import OffsetContent from './OffsetContent';
+import OffsetContent from './layout/OffsetContent';
 
 const getFrameSize = ({ width, height }) => ({ width, height });
 

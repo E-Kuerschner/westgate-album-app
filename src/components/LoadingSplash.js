@@ -1,7 +1,7 @@
 import React from "react"
 import anime from "animejs"
 import { spring, TransitionMotion, presets } from "react-motion"
-import VerticallyCentered from "./VerticallyCentered"
+import VerticallyCentered from "./layout/VerticallyCentered"
 import TitleSVG from "./TitleSVG"
 import LoadingSpinner from "./LoadingSpinner"
 import wait from "../wait"

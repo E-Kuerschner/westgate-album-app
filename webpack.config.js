@@ -19,7 +19,7 @@ let plugins = [
 module.exports = {
     target: "web",
     mode: process.env.NODE_ENV || "development",
-    entry: "./src/app.js",
+    entry: "./src/index.js",
     output: {
         path: path.join(__dirname, "dist"),
         filename: "bundle.js",
@@ -34,7 +34,7 @@ module.exports = {
                 exclude: ["node_modules"]
             },
             {
-                test:   /\.(png|gif|jpg|jpeg)$/,
+                test:   /\.(png|gif|jpg|jpeg|svg)$/,
                 exclude: ["node_modules"],
                 use: [{
                     loader: "url-loader",
