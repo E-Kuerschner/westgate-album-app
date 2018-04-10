@@ -12,7 +12,7 @@ const initialState = {
         desc: "left",
         link: undefined,
         unlockEpoch: undefined,
-        sizeToWindowRatio: { width: 0.148, height: 0.196 },
+        sizeToWindowRatio: { width: 0.149, height: 0.197 },
         offsetToWindowRatio: { top: 0.369, left: 0.763 },
         size: {
             width: undefined,
@@ -44,8 +44,8 @@ const initialState = {
         desc: "middle",
         link: undefined,
         unlockEpoch: undefined,
-        sizeToWindowRatio: { width: 0.164, height: 0.123 },
-        offsetToWindowRatio: { top: 0.307, left: 1.147 },
+        sizeToWindowRatio: { width: 0.164, height: 0.131 },
+        offsetToWindowRatio: { top: 0.305, left: 1.147 },
         size: {
             width: undefined,
             height: undefined

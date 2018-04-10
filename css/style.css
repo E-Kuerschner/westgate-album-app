@@ -210,6 +210,17 @@ iframe {
   cursor: pointer;
 }
 
+/* TITLE */
+.title {
+  color: white;
+  font-size: x-large;
+  font-family: Julius Sans One;
+  text-align: center;
+  position: fixed;
+  bottom: 50px;
+  width: 100%;
+}
+
 /* SOCIAL */
 .social-links {
   position: fixed;

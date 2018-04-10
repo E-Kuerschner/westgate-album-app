@@ -8,7 +8,7 @@ import DailyContentPopup from "./DailyContentPopup";
 import CountDown from './Countdown';
 import LoadingSplash from "./LoadingSplash"
 import ExperienceWarning from "./ExperienceWarning"
-import windowPic from "../../images/frames-compressed.jpg";
+import windowPic from "../../images/frames-empty.jpg";
 import bandcamp from "../../images/icons/bandcamp-icon.png"
 import instagram from "../../images/icons/instagram-icon.svg"
 import facebook from "../../images/icons/facebook-icon.svg"
@@ -109,6 +109,9 @@ class App extends React.Component {
                                 <CountDown targetEpoch={Frames[4].unlockEpoch}/>
                             </Frame>
                         </React.Fragment>   
+                    </div>
+                    <div className="title">
+                        - Something As Nothing -
                     </div>
                     <div className="social-links">
                         <div className="social-links__container">
