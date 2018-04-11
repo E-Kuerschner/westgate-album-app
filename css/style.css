@@ -5,7 +5,7 @@ html, body, div {
 }
 
 body {
-  background-color: rgb(37, 25, 14);
+  background-color: rgb(23, 13, 3);
 }
 
 #app {
@@ -40,22 +40,28 @@ iframe {
 
 .countdown {
   text-align: center;
-  color: white;
+  color: blue;
   font-family: 'Julius Sans One', sans-serif;;
 }
 
 .frame--locked {
   cursor: initial;
+  -webkit-transition: box-shadow 0.5s;
+  -moz-transition: box-shadow 0.5s;
+  -webkit-transition: box-shadow 0.5s;
+  transition: box-shadow 0.5s;
 }
 
 .frame--unlocked {
   cursor: pointer;
   transform: rotate(-1deg);
+  transition: box-shadow 0.5s;
 }
 
 .frame--unlocked:hover {
   border: solid palegoldenrod 3px;
-  box-shadow: #ab76 0px 0px 100px 0px;
+  /* box-shadow: #ab76 0px 0px 100px 0px; */
+  box-shadow: rgba(197, 191, 111, 0.61) 0px 0px 100px 0px;
 }
 
 /* HORIZONTALLY CENTERED */
@@ -214,7 +220,10 @@ iframe {
 .title {
   color: white;
   font-size: x-large;
+  /* font-family: 'Times New Roman', Times, serif; */
   font-family: Julius Sans One;
+  font-weight: 100;
+  letter-spacing: 5px;
   text-align: center;
   position: fixed;
   bottom: 50px;

@@ -111,7 +111,7 @@ class App extends React.Component {
                         </React.Fragment>   
                     </div>
                     <div className="title">
-                        - Something As Nothing -
+                        - SOMETHING AS NOTHING -
                     </div>
                     <div className="social-links">
                         <div className="social-links__container">
